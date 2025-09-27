@@ -1,5 +1,5 @@
 import math
-from OneDimensionalMethods.bisection import bisect, create_search_result
+from OneDimensionalMethods.golden_ratio import golden_ratio, create_search_result
 
 
 def test_quadratic():
@@ -8,8 +8,7 @@ def test_quadratic():
         return (x - 2) ** 2
     
     res = create_search_result()
-    
-    bisect(res, f, 0, 5, 1e-6, 1000)
+    golden_ratio(res, f, 0, 5, 1e-6, 1000)
     
     print("Test quadratic function f(x) = (x-2)^2:")
     print(res)
@@ -23,8 +22,7 @@ def test_sine():
         return math.sin(x)
     
     res = create_search_result()
-    
-    bisect(res, f, 2, 4, 1e-8, 1000)
+    golden_ratio(res, f, 2, 4, 1e-8, 1000)
     
     print("Test sine function f(x) = sin(x) on [2, 4]:")
     print(res)
@@ -39,8 +37,7 @@ def test_exponential():
         return math.exp(x) - 2 * x
     
     res = create_search_result()
-    
-    bisect(res, f, 0, 2, 1e-6, 1000)
+    golden_ratio(res, f, 0, 2, 1e-6, 1000)
     
     print("Test exponential function f(x) = e^x - 2x:")
     print(res)
@@ -55,8 +52,7 @@ def test_reversed_bounds():
         return x ** 2
     
     res = create_search_result()
-    
-    bisect(res, f, 2, -2, 1e-6, 1000)
+    golden_ratio(res, f, 2, -2, 1e-6, 1000)
     
     print("Test with reversed bounds (rhs < lhs):")
     print(res)
@@ -64,27 +60,38 @@ def test_reversed_bounds():
     print("✓ Passed\n")
 
 
-def test_accuracy():
-    """Тест точности алгоритма"""
-    def f(x: float) -> float:
-        return (x - 1.5) ** 2
+def test_efficiency_comparison():
+    """Сравнение эффективности с методом дихотомии"""
+    from OneDimensionalMethods.bisection import bisect, create_search_result as create_bisect_result
     
-    for eps in [1e-3, 1e-6, 1e-9]:
-        res = create_search_result()
-        
-        bisect(res, f, 0, 3, eps, 1000)
-        
-        print(f"Test accuracy with eps = {eps}:")
-        print(f"Result: {res.result}, Iterations: {res.iterations}")
-        assert abs(res.result - 1.5) < eps * 10, f"Result {res.result} is not within tolerance {eps * 10}"
-        print("✓ Passed\n")
+    def f(x: float) -> float:
+        return (x - 3.14159) ** 2 + math.sin(5 * x)
+    
+    # Тестируем метод золотого сечения
+    res_golden = create_search_result()
+    golden_ratio(res_golden, f, 0, 6, 1e-6, 1000)
+    
+    # Тестируем метод дихотомии
+    res_bisect = create_bisect_result()
+    bisect(res_bisect, f, 0, 6, 1e-6, 1000)
+    
+    print("Efficiency comparison on f(x) = (x - π)² + sin(5x):")
+    print(f"Golden ratio: {res_golden.iterations} iterations, {res_golden.function_probes} function calls")
+    print(f"Bisection: {res_bisect.iterations} iterations, {res_bisect.function_probes} function calls")
+    print(f"Golden ratio result: {res_golden.result:.6f}")
+    print(f"Bisection result: {res_bisect.result:.6f}")
+    
+    # Золотое сечение должно быть эффективнее по количеству вызовов функции
+    assert res_golden.function_probes < res_bisect.function_probes, \
+        "Golden ratio should use fewer function evaluations than bisection"
+    print("✓ Golden ratio is more efficient\n")
 
 
 if __name__ == "__main__":
-    print("Running bisection method tests...\n")
+    print("Running golden ratio method tests...\n")
     test_quadratic()
     test_sine()
     test_exponential()
     test_reversed_bounds()
-    test_accuracy()
+    test_efficiency_comparison()
     print("All tests passed!")
