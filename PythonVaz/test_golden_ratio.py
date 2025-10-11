@@ -8,7 +8,7 @@ def test_quadratic():
     def f(x: float) -> float:
         return (x - 2) ** 2
     
-    res = create_search_result(method_type=MethodType.GOLDEN_RATIO, accuracy=eps)
+    res = create_search_result(method_type=MethodType.GOLDEN_RATIO)
     golden_ratio(res, f, 0, 5, 1e-6, 1000)
     
     print("Test quadratic function f(x) = (x-2)^2:")
