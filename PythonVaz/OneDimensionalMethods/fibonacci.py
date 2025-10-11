@@ -1,6 +1,5 @@
 from typing import Callable, Tuple
-from .common import SearchResult, MethodType
-
+from .common import SearchResult
 
 def get_fibonacci_numbers(length_ratio: float, eps: float) -> Tuple[int, int, int]:
     """
@@ -26,18 +25,6 @@ def get_fibonacci_numbers(length_ratio: float, eps: float) -> Tuple[int, int, in
 
     return n, fib_prev, fib_curr
 
-
-def create_search_result() -> SearchResult:
-    """Создает пустую структуру SearchResult"""
-    return SearchResult(
-        method_type=MethodType.FIBONACCI,
-        iterations=0,
-        function_probes=0,
-        accuracy=0.0,
-        result=0.0
-    )
-
-
 def fibonacci(
     res: SearchResult,
     fun: Callable[[float], float],
@@ -60,9 +47,6 @@ def fibonacci(
     if lhs > rhs:
         lhs, rhs = rhs, lhs
 
-    res.method_type = MethodType.FIBONACCI
-    res.iterations = 0
-    res.function_probes = 0
     res.accuracy = eps
 
     # Определяем пару чисел Фибоначчи

@@ -21,3 +21,13 @@ class SearchResult(BaseModel):
                 f"Function probes: {self.function_probes}\n"
                 f"Accuracy: {self.accuracy:.2e}\n"
                 f"Result: {self.result:.10f}")
+
+def create_search_result(method_type, accuracy=0.0) -> SearchResult:
+    """Создает пустую структуру SearchResult"""
+    return SearchResult(
+        method_type=method_type,
+        iterations=0,
+        function_probes=0,
+        accuracy=accuracy,
+        result=0.0
+    )

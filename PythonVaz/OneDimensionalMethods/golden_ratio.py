@@ -1,21 +1,9 @@
 from typing import Callable
-from .common import SearchResult, MethodType
+from .common import SearchResult
 
 # Константы золотого сечения
 PSI = 0.61803398874989484820  # (√5 - 1) / 2
 PHI = 1.61803398874989484820  # (√5 + 1) / 2
-
-
-def create_search_result() -> SearchResult:
-    """Создает пустую структуру SearchResult"""
-    return SearchResult(
-        method_type=MethodType.GOLDEN_RATIO,
-        iterations=0,
-        function_probes=0,
-        accuracy=0.0,
-        result=0.0
-    )
-
 
 def golden_ratio(
     res: SearchResult,
@@ -29,9 +17,6 @@ def golden_ratio(
     if lhs > rhs:
         lhs, rhs = rhs, lhs
     
-    res.method_type = MethodType.GOLDEN_RATIO
-    res.iterations = 0
-    res.function_probes = 0
     res.accuracy = eps
     
     # Определяем левую и правую точку разбиения отрезка

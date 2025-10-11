@@ -1,6 +1,6 @@
 import math
-from OneDimensionalMethods.fibonacci import fibonacci, create_search_result, get_fibonacci_numbers
-from OneDimensionalMethods.common import SearchResult, MethodType
+from OneDimensionalMethods.fibonacci import fibonacci, get_fibonacci_numbers
+from OneDimensionalMethods.common import MethodType, create_search_result
 
 
 def test_fibonacci_generation():
@@ -18,7 +18,7 @@ def test_quadratic():
     def f(x: float) -> float:
         return (x - 2) ** 2
 
-    res = create_search_result()
+    res = create_search_result(method_type=MethodType.FIBONACCI, accuracy=1e-6)
     fibonacci(res, f, 0, 5, 1e-6, 1000)
 
     print("Test quadratic function f(x) = (x-2)^2:")
@@ -32,7 +32,7 @@ def test_sine():
     def f(x: float) -> float:
         return math.sin(x)
 
-    res = create_search_result()
+    res = create_search_result(method_type=MethodType.FIBONACCI)
     fibonacci(res, f, 2, 4, 1e-8, 1000)
 
     print("Test sine function f(x) = sin(x) on [2, 4]:")
@@ -47,7 +47,7 @@ def test_exponential():
     def f(x: float) -> float:
         return math.exp(x) - 2 * x
 
-    res = create_search_result()
+    res = create_search_result(method_type=MethodType.FIBONACCI)
     fibonacci(res, f, 0, 2, 1e-6, 1000)
 
     print("Test exponential function f(x) = e^x - 2x:")
@@ -62,7 +62,7 @@ def test_reversed_bounds():
     def f(x: float) -> float:
         return x ** 2
 
-    res = create_search_result()
+    res = create_search_result(method_type=MethodType.FIBONACCI)
     fibonacci(res, f, 2, -2, 1e-6, 1000)
 
     print("Test with reversed bounds (rhs < lhs):")
@@ -73,22 +73,22 @@ def test_reversed_bounds():
 
 def test_efficiency_comparison():
     """Сравнение эффективности трех методов"""
-    from OneDimensionalMethods.bisection import bisect, create_search_result as create_bisect_result
-    from OneDimensionalMethods.golden_ratio import golden_ratio, create_search_result as create_golden_result
+    from OneDimensionalMethods.bisection import bisect
+    from OneDimensionalMethods.golden_ratio import golden_ratio
 
     def f(x: float) -> float:
         return (x - 3.14159) ** 2 + math.sin(5 * x)
 
     # Тестируем метод Фибоначчи
-    res_fib = create_search_result()
+    res_fib = create_search_result(method_type=MethodType.FIBONACCI)
     fibonacci(res_fib, f, 0, 6, 1e-6, 1000)
 
     # Тестируем метод золотого сечения
-    res_golden = create_golden_result()
+    res_golden = create_search_result(method_type=MethodType.GOLDEN_RATIO)
     golden_ratio(res_golden, f, 0, 6, 1e-6, 1000)
 
     # Тестируем метод дихотомии
-    res_bisect = create_bisect_result()
+    res_bisect = create_search_result(method_type=MethodType.BISECT)
     bisect(res_bisect, f, 0, 6, 1e-6, 1000)
 
     print("Efficiency comparison on f(x) = (x - π)² + sin(5x):")

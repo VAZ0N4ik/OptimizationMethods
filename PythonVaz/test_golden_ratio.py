@@ -1,5 +1,6 @@
 import math
-from OneDimensionalMethods.golden_ratio import golden_ratio, create_search_result
+from OneDimensionalMethods.golden_ratio import golden_ratio
+from OneDimensionalMethods.common import MethodType, create_search_result
 
 
 def test_quadratic():
@@ -7,7 +8,7 @@ def test_quadratic():
     def f(x: float) -> float:
         return (x - 2) ** 2
     
-    res = create_search_result()
+    res = create_search_result(method_type=MethodType.GOLDEN_RATIO, accuracy=eps)
     golden_ratio(res, f, 0, 5, 1e-6, 1000)
     
     print("Test quadratic function f(x) = (x-2)^2:")
@@ -21,7 +22,7 @@ def test_sine():
     def f(x: float) -> float:
         return math.sin(x)
     
-    res = create_search_result()
+    res = create_search_result(method_type=MethodType.GOLDEN_RATIO)
     golden_ratio(res, f, 2, 4, 1e-8, 1000)
     
     print("Test sine function f(x) = sin(x) on [2, 4]:")
@@ -36,7 +37,7 @@ def test_exponential():
     def f(x: float) -> float:
         return math.exp(x) - 2 * x
     
-    res = create_search_result()
+    res = create_search_result(method_type=MethodType.GOLDEN_RATIO)
     golden_ratio(res, f, 0, 2, 1e-6, 1000)
     
     print("Test exponential function f(x) = e^x - 2x:")
@@ -51,7 +52,7 @@ def test_reversed_bounds():
     def f(x: float) -> float:
         return x ** 2
     
-    res = create_search_result()
+    res = create_search_result(method_type=MethodType.GOLDEN_RATIO)
     golden_ratio(res, f, 2, -2, 1e-6, 1000)
     
     print("Test with reversed bounds (rhs < lhs):")
@@ -62,17 +63,17 @@ def test_reversed_bounds():
 
 def test_efficiency_comparison():
     """Сравнение эффективности с методом дихотомии"""
-    from OneDimensionalMethods.bisection import bisect, create_search_result as create_bisect_result
-    
+    from OneDimensionalMethods.bisection import bisect
+
     def f(x: float) -> float:
         return (x - 3.14159) ** 2 + math.sin(5 * x)
     
     # Тестируем метод золотого сечения
-    res_golden = create_search_result()
+    res_golden = create_search_result(method_type=MethodType.GOLDEN_RATIO)
     golden_ratio(res_golden, f, 0, 6, 1e-6, 1000)
     
     # Тестируем метод дихотомии
-    res_bisect = create_bisect_result()
+    res_bisect = create_search_result(method_type=MethodType.BISECT)
     bisect(res_bisect, f, 0, 6, 1e-6, 1000)
     
     print("Efficiency comparison on f(x) = (x - π)² + sin(5x):")
