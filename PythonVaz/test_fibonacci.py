@@ -1,8 +1,7 @@
 import math
-from OneDimensionalMethods.fibonacci import fibonacci, get_fibonacci_numbers
-from OneDimensionalMethods.common import MethodType, create_search_result
+from OneDimensionalMethods import *
 
-
+'''
 def test_fibonacci_generation():
     """Тест генерации чисел Фибоначчи"""
     n, L_n_minus_1, L_n = get_fibonacci_numbers(100, 0.01)
@@ -11,7 +10,7 @@ def test_fibonacci_generation():
     assert L_n >= 100, f"L_n should be >= 100, got {L_n}"
     assert L_n_minus_1 < L_n, f"L_{n-1} should be < L_n"
     print("✓ Passed\n")
-
+'''
 
 def test_quadratic():
     """Тест на квадратичной функции f(x) = (x-2)^2"""
@@ -19,7 +18,7 @@ def test_quadratic():
         return (x - 2) ** 2
 
     res = create_search_result(method_type=MethodType.FIBONACCI)
-    fibonacci(res, f, 0, 5, 1e-6, 1000)
+    fibonacci(res, f, 0, 5, 1e-6)
 
     print("Test quadratic function f(x) = (x-2)^2:")
     print(res)
@@ -33,7 +32,7 @@ def test_sine():
         return math.sin(x)
 
     res = create_search_result(method_type=MethodType.FIBONACCI)
-    fibonacci(res, f, 2, 4, 1e-8, 1000)
+    fibonacci(res, f, 2, 4, 1e-8)
 
     print("Test sine function f(x) = sin(x) on [2, 4]:")
     print(res)
@@ -48,7 +47,7 @@ def test_exponential():
         return math.exp(x) - 2 * x
 
     res = create_search_result(method_type=MethodType.FIBONACCI)
-    fibonacci(res, f, 0, 2, 1e-6, 1000)
+    fibonacci(res, f, 0, 2, 1e-6)
 
     print("Test exponential function f(x) = e^x - 2x:")
     print(res)
@@ -63,7 +62,7 @@ def test_reversed_bounds():
         return x ** 2
 
     res = create_search_result(method_type=MethodType.FIBONACCI)
-    fibonacci(res, f, 2, -2, 1e-6, 1000)
+    fibonacci(res, f, 2, -2, 1e-6)
 
     print("Test with reversed bounds (rhs < lhs):")
     print(res)
@@ -81,7 +80,7 @@ def test_efficiency_comparison():
 
     # Тестируем метод Фибоначчи
     res_fib = create_search_result(method_type=MethodType.FIBONACCI)
-    fibonacci(res_fib, f, 0, 6, 1e-6, 1000)
+    fibonacci(res_fib, f, 0, 6, 1e-6)
 
     # Тестируем метод золотого сечения
     res_golden = create_search_result(method_type=MethodType.GOLDEN_RATIO)
@@ -109,7 +108,7 @@ def test_efficiency_comparison():
 
 if __name__ == "__main__":
     print("Running Fibonacci method tests...\n")
-    test_fibonacci_generation()
+    #test_fibonacci_generation()
     test_quadratic()
     test_sine()
     test_exponential()

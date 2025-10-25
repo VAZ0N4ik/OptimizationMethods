@@ -1,13 +1,10 @@
 import math
 from typing import Callable
-from OneDimensionalMethods.bisection import bisect
-from OneDimensionalMethods.golden_ratio import golden_ratio
-from OneDimensionalMethods.fibonacci import fibonacci
-from OneDimensionalMethods.common import MethodType, create_search_result
+from OneDimensionalMethods import *
 
 def target_function(x: float) -> float:
     """Целевая функция для оптимизации f(x) = (x - 2)^2 + sin(5x)"""
-    return (x - 2) ** 2 + math.sin(5 * x)
+    return (x - 2) ** 2
 
 
 def main():
@@ -46,7 +43,7 @@ def main():
     print("\n3. МЕТОД ФИБОНАЧЧИ")
     print("-" * 40)
     res_fibonacci = create_search_result(MethodType.FIBONACCI)
-    fibonacci(res_fibonacci, target_function, lhs, rhs, eps, max_iters)
+    fibonacci(res_fibonacci, target_function, lhs, rhs, eps*2.5)
     print(res_fibonacci)
 
     # Сравнительная таблица

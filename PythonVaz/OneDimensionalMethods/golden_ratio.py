@@ -16,8 +16,7 @@ def golden_ratio(
 
     if lhs > rhs:
         lhs, rhs = rhs, lhs
-    
-    res.accuracy = eps
+
     
     # Определяем левую и правую точку разбиения отрезка
     x_r = lhs + PSI * (rhs - lhs)
@@ -50,3 +49,4 @@ def golden_ratio(
         res.iterations += 1
     
     res.result = (lhs + rhs) / 2
+    res.accuracy = rhs - lhs

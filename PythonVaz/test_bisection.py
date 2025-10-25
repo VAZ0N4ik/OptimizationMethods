@@ -1,6 +1,5 @@
 import math
-from OneDimensionalMethods.bisection import bisect
-from OneDimensionalMethods.common import MethodType, create_search_result
+from OneDimensionalMethods import *
 
 
 def test_quadratic():

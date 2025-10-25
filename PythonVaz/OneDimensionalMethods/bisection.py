@@ -13,22 +13,23 @@ def bisect(
     if lhs > rhs:
         lhs, rhs = rhs, lhs
 
-    res.accuracy = eps
+    res.clear()
 
     while abs(rhs - lhs) > 2 * eps and res.iterations < max_iters:
         x_c = (lhs + rhs) / 2
-        x_1 = x_c - eps
-        x_2 = x_c + eps
-        
-        f_1 = fun(x_1)
-        f_2 = fun(x_2)
+        xl = x_c - eps/10
+        xr = x_c + eps/10
+
+        f_1 = fun(xl)
+        f_2 = fun(xr)
         res.function_probes += 2
-        
+
         if f_1 > f_2:
-            lhs = x_c
+            lhs = xl
         else:
-            rhs = x_c
-            
+            rhs = xr
+
         res.iterations += 1
-    
+
     res.result = (lhs + rhs) / 2
+    res.accuracy = rhs - lhs
